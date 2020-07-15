@@ -26,6 +26,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
+import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
@@ -36,7 +37,9 @@ import retrofit2.http.Query;
 
 public interface Api {
 
-    @POST("users/register")
+
+    @Headers("Content-Type: application/json")
+    @POST("android/v1/createUser.php")
     Call<RegisterApiResponse> createUser(@Body User user);
 
     @GET("users/login")
@@ -65,7 +68,7 @@ public interface Api {
     @GET("products")
     Call<ProductApiResponse> getProducts(@Query("page") int page);
 
-    @GET("products")
+    @GET("android/v1/getProductsByCategory.php")
     Call<ProductApiResponse> getProductsByCategory(@Query("category") String category, @Query("userId") int userId,@Query("page") int page);
 
     @GET("products/search")

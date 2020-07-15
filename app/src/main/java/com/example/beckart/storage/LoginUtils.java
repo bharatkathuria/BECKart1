@@ -51,7 +51,7 @@ public class LoginUtils {
         editor.putString("name", user.getName());
         editor.putString("email", user.getEmail());
         editor.putString("password", user.getPassword());
-        editor.putBoolean("isAdmin", user.isAdmin());
+            editor.putBoolean("isAdmin", user.isAdmin());
         editor.apply();
     }
 

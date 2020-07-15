@@ -34,7 +34,6 @@ public class AddProductRepository {
                 Log.d(TAG, "onResponse: " + "Product Inserted");
 
                 ResponseBody responseBody = response.body();
-
                 if (response.body() != null) {
                     mutableLiveData.setValue(responseBody);
                 }

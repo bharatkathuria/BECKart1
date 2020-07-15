@@ -1,12 +1,23 @@
 package com.example.beckart.model;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 public class RegisterApiResponse {
 
-    private int id;
+    @SerializedName("error")
     private boolean error;
+    @SerializedName("message")
     private String message;
+
+    private int id;
+
+    @SerializedName("User")
     private com.example.beckart.model.User user;
 
+    public RegisterApiResponse(User user) {
+        this.user = user;
+    }
     public RegisterApiResponse(boolean error, String message) {
         this.error = error;
         this.message = message;

@@ -102,10 +102,10 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
         int userID = LoginUtils.getInstance(this).getUserInfo().getId();
 
         productViewModel = ViewModelProviders.of(this).get(ProductViewModel.class);
-        productViewModel.loadMobiles("mobile", userID);
         productViewModel.loadLaptops("laptop",userID);
-        historyViewModel = ViewModelProviders.of(this).get(HistoryViewModel.class);
-        historyViewModel.loadHistory(userID);
+        productViewModel.loadMobiles("mobile", userID);
+//        historyViewModel = ViewModelProviders.of(this).get(HistoryViewModel.class);
+//        historyViewModel.loadHistory(userID);
         uploadPhotoViewModel = ViewModelProviders.of(this).get(UploadPhotoViewModel.class);
         userImageViewModel = ViewModelProviders.of(this).get(UserImageViewModel.class);
 
@@ -121,8 +121,8 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
 
         getMobiles();
         getLaptops();
-        getHistory();
-        getUserImage();
+//        getHistory();
+//        getUserImage();
 
         flipImages(Slide.getSlides());
 
@@ -539,8 +539,8 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
         productViewModel.invalidate();
         getMobiles();
         getLaptops();
-        historyViewModel.invalidate();
-        getHistory();
+//        historyViewModel.invalidate();
+//        getHistory();
     }
 
     private PagedList.Callback productCallback = new PagedList.Callback() {

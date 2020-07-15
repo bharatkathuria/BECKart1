@@ -33,7 +33,6 @@ public class ProductDataSource extends PageKeyedDataSource<Integer, Product> {
                     @Override
                     public void onResponse(Call<ProductApiResponse> call, Response<ProductApiResponse> response) {
                         Log.v("onResponse", "Succeeded " + response.body().getProducts().size());
-
                         if (response.body().getProducts() == null) {
                             return;
                         }
