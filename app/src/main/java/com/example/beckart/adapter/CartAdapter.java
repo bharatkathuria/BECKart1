@@ -67,7 +67,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
 
         DecimalFormat formatter = new DecimalFormat("#,###,###");
         String formattedPrice = formatter.format(currentProduct.getProductPrice());
-        holder.binding.txtProductPrice.setText(formattedPrice + " EGP");
+        holder.binding.txtProductPrice.setText(mContext.getResources().getString(R.string.Rs)+" "+formattedPrice);
 
         // Load the Product image into ImageView
         String imageUrl = LOCALHOST + currentProduct.getProductImage().replaceAll("\\\\", "/");
@@ -163,7 +163,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         }
 
         private void deleteFavoriteProduct(RequestCallback callback) {
-            removeFavoriteViewModel.removeFavorite(com.example.beckart.storage.LoginUtils.getInstance(mContext).getUserInfo().getId(), currentProduct.getProductId(), callback);
+            removeFavoriteViewModel.
+                    removeFavorite(com.example.beckart.storage.LoginUtils.getInstance(mContext).getUserInfo().getId(), currentProduct.getProductId(), callback);
         }
 
         private void deleteFromCart(RequestCallback callback) {

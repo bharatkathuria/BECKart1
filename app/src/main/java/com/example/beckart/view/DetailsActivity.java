@@ -62,7 +62,7 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
 
         setUpRecycleView();
 
-        getReviewsOfProduct();
+//        getReviewsOfProduct();
     }
 
     private void setUpRecycleView() {
@@ -76,6 +76,7 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
         product = getIntent().getParcelableExtra(PRODUCT);
 
         Log.d(TAG,"isFavourite " + product.isFavourite() + " isInCart " + product.isInCart());
+
 
         // Set Custom ActionBar Layout
         ActionBar actionBar = getSupportActionBar();
@@ -144,7 +145,7 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     protected void onResume() {
         super.onResume();
-        getReviewsOfProduct();
+//        getReviewsOfProduct();
     }
 
 

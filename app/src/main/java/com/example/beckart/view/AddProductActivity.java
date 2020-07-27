@@ -40,7 +40,7 @@ import static com.example.beckart.utils.Constant.PICK_IMAGE;
 import static com.example.beckart.utils.Constant.READ_EXTERNAL_STORAGE_CODE;
 import static com.example.beckart.utils.ImageUtils.getRealPathFromURI;
 
-public class AddProductActivity extends AppCompatActivity implements View.OnClickListener, LifecycleOwner {
+public class AddProductActivity extends AppCompatActivity implements View.OnClickListener{
 
     private static final String TAG = "AddProductActivity";
     private ActivityAddProductBinding binding;
@@ -110,16 +110,14 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
         File file = new File(pathname);
         RequestBody requestFile = RequestBody.create(MediaType.parse("image/*"), file);
         MultipartBody.Part photo = MultipartBody.Part.createFormData("image", file.getName(), requestFile);
-
+        Log.d("addProduct", "onResponse: " + "1");
         addProductViewModel.addProduct(map, photo).observe(this, responseBody -> {
-            try {
                 if (responseBody != null) {
-                    Toast.makeText(AddProductActivity.this, responseBody.string() + "", Toast.LENGTH_SHORT).show();
+                    Log.d("addProduct", "onResponse: " + "5");
+                    Toast.makeText(getApplicationContext(), "Product Added Successfully.", Toast.LENGTH_SHORT).show();
                     finish();
                 }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+
         });
     }
 
@@ -179,9 +177,4 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
         }
     }
 
-    @NonNull
-    @Override
-    public Lifecycle getLifecycle() {
-        return null;
-    }
 }

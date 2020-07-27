@@ -25,19 +25,23 @@ public class FromCartRepository {
     }
 
     public LiveData<ResponseBody> removeFromCart(int userId, int productId, final RequestCallback callback) {
+        Log.d("onRemove", "" + 1);
         final MutableLiveData<ResponseBody> mutableLiveData = new MutableLiveData<>();
         RetrofitClient.getInstance().getApi().removeFromCart(userId, productId).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                Log.d("onRemove", "" + 2);
                 Log.d("onResponse", "" + response.code());
 
                 if(response.code() == 200){
+                    Log.d("onRemove", "" + 3);
                     callback.onCallBack();
                 }
 
                 ResponseBody responseBody = response.body();
 
                 if (response.body() != null) {
+                    Log.d("onRemove", "" + 4);
                     mutableLiveData.setValue(responseBody);
                 }
             }

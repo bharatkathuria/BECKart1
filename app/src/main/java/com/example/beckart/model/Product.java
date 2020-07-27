@@ -45,6 +45,7 @@ public class Product implements Parcelable {
         return productId;
     }
 
+
     public String getProductName() {
         return productName;
     }
@@ -66,7 +67,7 @@ public class Product implements Parcelable {
     }
 
     public String getProductImage() {
-        return productImage;
+        return  "android"+productImage.substring(2);
     }
 
 

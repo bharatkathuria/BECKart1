@@ -9,7 +9,9 @@ import android.content.Context;
 
 
 import android.databinding.DataBindingUtil;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.util.DiffUtil;
@@ -20,6 +22,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.example.beckart.R;
 import com.example.beckart.ViewModel.AddFavoriteViewModel;
 import com.example.beckart.ViewModel.FromCartViewModel;
@@ -88,12 +94,22 @@ public class ProductAdapter extends PagedListAdapter<Product, ProductAdapter.Pro
 
             DecimalFormat formatter = new DecimalFormat("#,###,###");
             String formattedPrice = formatter.format(product.getProductPrice());
-            holder.binding.txtProductPrice.setText(formattedPrice + " EGP");
+            holder.binding.txtProductPrice.setText(mContext.getResources().getString(R.string.Rs)+" "+formattedPrice);
 
             // Load the Product image into ImageView
-            String imageUrl = LOCALHOST + product.getProductImage().replaceAll("\\\\", "/");
+            String imageUrl = LOCALHOST+product.getProductImage().replaceAll("\\\\", "/");
             Glide.with(mContext)
-                    .load(imageUrl)
+                    .load(imageUrl).listener(new RequestListener<Drawable>() {
+                @Override
+                public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                    return false;
+                }
+
+                @Override
+                public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                    return false;
+                }
+            })
                     .into(holder.binding.imgProductImage);
 
             Log.d("imageUrl", imageUrl);

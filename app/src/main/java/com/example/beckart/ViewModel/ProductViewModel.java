@@ -10,6 +10,9 @@ import com.example.beckart.net.LaptopDataSourceFactory;
 import com.example.beckart.net.ProductDataSource;
 import com.example.beckart.net.ProductDataSourceFactory;
 
+import java.util.Observable;
+import java.util.Observer;
+
 import static com.example.beckart.net.LaptopDataSourceFactory.laptopDataSource;
 import static com.example.beckart.net.ProductDataSourceFactory.productDataSource;
 
@@ -56,4 +59,5 @@ public class ProductViewModel extends ViewModel {
         if(productDataSource != null) productDataSource.invalidate();
         if(laptopDataSource!= null) laptopDataSource.invalidate();
     }
+
 }

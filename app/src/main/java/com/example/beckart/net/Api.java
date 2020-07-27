@@ -25,6 +25,8 @@ import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
@@ -39,10 +41,10 @@ public interface Api {
 
 
     @Headers("Content-Type: application/json")
-    @POST("android/v1/createUser.php")
+    @POST("android/api/createUser.php")
     Call<RegisterApiResponse> createUser(@Body User user);
 
-    @GET("users/login")
+    @GET("android/api/logInUser.php")
     Call<LoginApiResponse> logInUser(@Query("email") String email, @Query("password") String password);
 
     @DELETE("users/{userId}")
@@ -56,7 +58,7 @@ public interface Api {
     Call<ResponseBody> updatePassword(@Query("password") String password, @Query("id") int userId);
 
     @Multipart
-    @POST("products/insert")
+    @POST("android/api/insertProduct.php")
     Call<ResponseBody> insertProduct(@PartMap Map<String, RequestBody> productInfo, @Part MultipartBody.Part image);
 
     @GET("users/getImage")
@@ -68,43 +70,47 @@ public interface Api {
     @GET("products")
     Call<ProductApiResponse> getProducts(@Query("page") int page);
 
-    @GET("android/v1/getProductsByCategory.php")
+    @GET("android/api/getProductsByCategory.php")
     Call<ProductApiResponse> getProductsByCategory(@Query("category") String category, @Query("userId") int userId,@Query("page") int page);
 
     @GET("products/search")
     Call<ProductApiResponse> searchForProduct(@Query("q") String keyword, @Query("userId") int userId);
 
-    @POST("favorites/add")
+    @Headers("Content-Type: application/json")
+    @POST("android/api/addFavorite.php")
     Call<ResponseBody> addFavorite(@Body Favorite favorite);
 
-    @DELETE("favorites/remove")
-    Call<ResponseBody> removeFavorite(@Query("userId") int userId, @Query("productId") int productId);
+    @FormUrlEncoded
+    @POST("android/api/removeFavorite.php")
+    Call<ResponseBody> removeFavorite(@Field("userId") int userId, @Field("productId") int productId);
 
-    @GET("favorites")
+    @GET("android/api/getFavorites.php")
     Call<FavoriteApiResponse> getFavorites(@Query("userId") int userId);
 
-    @POST("carts/add")
+    @POST("android/api/addToCart.php")
     Call<ResponseBody> addToCart(@Body Cart cart);
 
-    @DELETE("carts/remove")
-    Call<ResponseBody> removeFromCart(@Query("userId") int userId, @Query("productId") int productId);
+    @FormUrlEncoded
+    @POST("android/api/removeFromCart.php")
+    Call<ResponseBody> removeFromCart(@Field("userId") int userId, @Field("productId") int productId);
 
-    @GET("carts")
+    @GET("android/api/getProductsInCart.php")
     Call<CartApiResponse> getProductsInCart(@Query("userId") int userId);
 
-    @POST("history/add")
+    @POST("android/api/addToHistory.php")
     Call<ResponseBody> addToHistory(@Body History history);
 
-    @DELETE("history/remove")
+
+    @DELETE("android/api/removeAllFromHistory.php")
     Call<ResponseBody> removeAllFromHistory();
 
-    @GET("history")
+    @GET("android/api/getProductsInHistory.php")
     Call<HistoryApiResponse> getProductsInHistory(@Query("userId") int userId, @Query("page") int page);
 
-    @POST("review/add")
+    @POST("android/api/addReview.php")
     Call<ResponseBody> addReview(@Body Review review);
 
-    @GET("review")
+    @GET("android/api/getAllReviews.php")
     Call<ReviewApiResponse> getAllReviews(@Query("productId") int productId);
 
     @GET("posters")

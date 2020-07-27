@@ -4,6 +4,7 @@ import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.example.beckart.repository.AddProductRepository;
 
@@ -23,6 +24,7 @@ public class AddProductViewModel extends AndroidViewModel {
     }
 
     public LiveData<ResponseBody> addProduct(Map<String, RequestBody> productInfo, MultipartBody.Part image) {
+        Log.d("addProduct", "onResponse: " + "3");
         return addProductRepository.addProduct(productInfo,image);
     }
 }

@@ -1,11 +1,8 @@
 package com.example.beckart.view;
 
 import android.arch.lifecycle.Lifecycle;
+import android.arch.lifecycle.LifecycleObserver;
 import android.arch.lifecycle.LifecycleOwner;
-import android.arch.lifecycle.Observer;
-import android.arch.lifecycle.ViewModelProvider;
-//import androidx.paging.PagedList;
-
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.arch.paging.PagedList;
@@ -33,7 +30,7 @@ import com.example.beckart.storage.LoginUtils;
 import static com.example.beckart.storage.LanguageUtils.loadLocale;
 import static com.example.beckart.utils.Constant.PRODUCT;
 
-public class AllLaptopsActivity extends AppCompatActivity implements ProductAdapter.ProductAdapterOnClickHandler, LifecycleOwner {
+public class AllLaptopsActivity extends AppCompatActivity implements ProductAdapter.ProductAdapterOnClickHandler,LifecycleOwner,LifecycleObserver{
 
     private ActivityAllLaptopsBinding binding;
     private ProductAdapter laptopAdapter;
@@ -51,7 +48,7 @@ public class AllLaptopsActivity extends AppCompatActivity implements ProductAdap
         int userID = LoginUtils.getInstance(this).getUserInfo().getId();
 
         productViewModel = ViewModelProviders.of(this).get(ProductViewModel.class);
-        productViewModel.loadLaptops("laptop",userID);
+        productViewModel.loadLaptops("cookware",userID);
 
         setupRecyclerViews();
 
@@ -60,14 +57,13 @@ public class AllLaptopsActivity extends AppCompatActivity implements ProductAdap
 
     private void setupRecyclerViews() {
         // Laptops
-        binding.allLaptopsRecyclerView.setHasFixedSize(true);
         binding.allLaptopsRecyclerView.setLayoutManager(new GridLayoutManager(this, (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) ? 2 : 4));
+        binding.allLaptopsRecyclerView.setHasFixedSize(true);
         laptopAdapter = new ProductAdapter(this, this);
     }
 
     public void getAllLaptops() {
 
-        // Observe the productPagedList from ViewModel
         productViewModel.laptopPagedList.observe(this, new Observer<PagedList<Product>>() {
             @Override
             public void onChanged(@Nullable PagedList<Product> products) {
@@ -88,9 +84,4 @@ public class AllLaptopsActivity extends AppCompatActivity implements ProductAdap
         startActivity(intent);
     }
 
-    @NonNull
-    @Override
-    public Lifecycle getLifecycle() {
-        return null;
-    }
 }

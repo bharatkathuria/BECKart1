@@ -3,6 +3,7 @@ package com.example.beckart.utils;
 public class Constant {
 
     public static String LOCALHOST = "http://192.168.1.4/";
+//    public static String LOCALHOST = "https://wholesalehomeindia.com/";
 
     // Constant Variables
     public static String PRODUCT = "product";

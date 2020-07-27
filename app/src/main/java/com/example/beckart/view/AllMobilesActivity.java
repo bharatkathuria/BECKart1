@@ -2,6 +2,7 @@ package com.example.beckart.view;
 
 
 import android.arch.lifecycle.Lifecycle;
+import android.arch.lifecycle.LifecycleObserver;
 import android.arch.lifecycle.LifecycleOwner;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
@@ -30,7 +31,7 @@ import com.example.beckart.storage.LoginUtils;
 import static com.example.beckart.storage.LanguageUtils.loadLocale;
 import static com.example.beckart.utils.Constant.PRODUCT;
 
-public class AllMobilesActivity extends AppCompatActivity implements ProductAdapter.ProductAdapterOnClickHandler, LifecycleOwner {
+public class AllMobilesActivity extends AppCompatActivity implements ProductAdapter.ProductAdapterOnClickHandler,LifecycleOwner,LifecycleObserver {
 
     private ActivityAllMobilesBinding binding;
     private ProductAdapter productAdapter;
@@ -48,10 +49,9 @@ public class AllMobilesActivity extends AppCompatActivity implements ProductAdap
         int userID = LoginUtils.getInstance(this).getUserInfo().getId();
 
         productViewModel = ViewModelProviders.of(this).get(ProductViewModel.class);
-        productViewModel.loadMobiles("mobile", userID);
+        productViewModel.loadMobiles("cutlery", userID);
 
         setupRecyclerViews();
-
         getAllMobiles();
     }
 
@@ -83,9 +83,7 @@ public class AllMobilesActivity extends AppCompatActivity implements ProductAdap
         startActivity(intent);
     }
 
-    @NonNull
-    @Override
-    public Lifecycle getLifecycle() {
-        return null;
-    }
+
 }
+
+

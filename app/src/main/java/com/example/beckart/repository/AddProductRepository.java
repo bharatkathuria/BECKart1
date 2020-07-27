@@ -4,9 +4,12 @@ import android.app.Application;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.beckart.net.RetrofitClient;
+import com.example.beckart.view.AddProductActivity;
 
+import java.io.IOException;
 import java.util.Map;
 
 import okhttp3.MultipartBody;
@@ -27,20 +30,27 @@ public class AddProductRepository {
 
     public LiveData<ResponseBody> addProduct(Map<String, RequestBody> productInfo, MultipartBody.Part image) {
         final MutableLiveData<ResponseBody> mutableLiveData = new MutableLiveData<>();
-
+        Log.d("addProduct", "onResponse: " + "4");
         RetrofitClient.getInstance().getApi().insertProduct(productInfo,image).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                Log.d(TAG, "onResponse: " + "Product Inserted");
+                Log.d("addProduct", "onResponse: " + "Product Inserted");
 
                 ResponseBody responseBody = response.body();
                 if (response.body() != null) {
-                    mutableLiveData.setValue(responseBody);
+
+                    try {
+                        Log.d("addProduct", "onResponse: " + response.body().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                   mutableLiveData.setValue(responseBody);
                 }
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Log.d("addProduct", "onResponse: " + "7");
                 Log.d(TAG, "onFailure: " + t.getMessage());
             }
         });
