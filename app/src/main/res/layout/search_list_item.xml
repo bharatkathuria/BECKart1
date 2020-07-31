@@ -33,7 +33,7 @@
                 android:layout_height="160dp"
                 android:layout_gravity="center"
                 android:contentDescription="@string/product_image"
-                android:src="@drawable/a" />
+                />
 
             <TextView
                 android:id="@+id/txtProductName"

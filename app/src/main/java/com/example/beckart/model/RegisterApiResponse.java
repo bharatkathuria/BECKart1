@@ -9,11 +9,11 @@ public class RegisterApiResponse {
     private boolean error;
     @SerializedName("message")
     private String message;
+    @SerializedName("User")
+    private com.example.beckart.model.User user;
 
     private int id;
 
-    @SerializedName("User")
-    private com.example.beckart.model.User user;
 
     public RegisterApiResponse(User user) {
         this.user = user;

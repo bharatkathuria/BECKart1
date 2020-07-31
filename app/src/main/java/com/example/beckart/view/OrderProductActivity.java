@@ -28,7 +28,7 @@ public class OrderProductActivity extends AppCompatActivity implements View.OnCl
     private OrderingViewModel orderingViewModel;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_order_product);
 

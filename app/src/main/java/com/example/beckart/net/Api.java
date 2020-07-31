@@ -64,7 +64,7 @@ public interface Api {
     @GET("users/getImage")
     Call<Image> getUserImage(@Query("id") int userId);
 
-    @GET("users/otp")
+    @GET("android/api/getOtp.php")
     Call<Otp> getOtp(@Query("email") String email);
 
     @GET("products")
@@ -119,9 +119,9 @@ public interface Api {
     @GET("orders/get")
     Call<OrderApiResponse> getOrders(@Query("userId") int userId);
 
-    @POST("address/add")
+    @POST("android/api/addShippingAddress.php")
     Call<ResponseBody> addShippingAddress(@Body Shipping shipping);
 
-    @POST("orders/add")
+    @POST("android/api/orderProduct.php")
     Call<ResponseBody> orderProduct(@Body Ordering ordering);
 }

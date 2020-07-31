@@ -68,6 +68,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:contentDescription="@string/image_of_product"
-            tools:src="@drawable/b" />
+             />
     </LinearLayout>
 </layout>

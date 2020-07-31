@@ -21,6 +21,8 @@ import com.example.beckart.storage.LoginUtils;
 import com.example.beckart.utils.Validation;
 
 import static com.example.beckart.storage.LanguageUtils.loadLocale;
+import static com.example.beckart.utils.Constant.EMAIL;
+import static com.example.beckart.utils.Constant.OTP;
 
 public class SignUpActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -98,10 +100,10 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
         registerViewModel.getRegisterResponseLiveData(new User(name, email, password)).observe((LifecycleOwner) this, registerApiResponse -> {
             if (!registerApiResponse.isError()) {
-                Toast.makeText(this, registerApiResponse.getMessage(), Toast.LENGTH_LONG).show();
-                LoginUtils.getInstance(this).saveUserInfo(registerApiResponse.getUser());
+//                Toast.makeText(this, registerApiResponse.getMessage(), Toast.LENGTH_LONG).show();
+//                LoginUtils.getInstance(this).saveUserInfo(registerApiResponse.getUser());
                 progressDialog.dismiss();
-                goToProductActivity();
+                goToAuthenticationActivity(email,registerApiResponse.getUser());
             }else {
                 progressDialog.cancel();
                 Toast.makeText(this, registerApiResponse.getMessage(), Toast.LENGTH_SHORT).show();
@@ -133,6 +135,14 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
         finish();
+    }
+    private void goToAuthenticationActivity(String email,User user) {
+        Intent intent = new Intent(this, AuthenticationActivity.class);
+        intent.putExtra(EMAIL, email);
+        intent.putExtra(OTP, "1233333");
+        intent.putExtra("User",user);
+        intent.putExtra("activity","SignUpActivity");
+        startActivity(intent);
     }
 
     private void setBoldStyle() {

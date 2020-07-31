@@ -13,6 +13,8 @@ import android.widget.TextView;
 import com.example.beckart.R;
 import com.example.beckart.ViewModel.OtpViewModel;
 import com.example.beckart.databinding.ActivityAuthenticationBinding;
+import com.example.beckart.model.User;
+import com.example.beckart.storage.LoginUtils;
 
 import static com.example.beckart.utils.Constant.EMAIL;
 import static com.example.beckart.utils.Constant.OTP;
@@ -26,7 +28,8 @@ public class AuthenticationActivity extends AppCompatActivity implements View.On
     private String correctOtpCode;
     static boolean isActivityRunning = false;
     private int clickCount = 0;
-
+    private String previousActivity;
+    private User user;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,10 +43,13 @@ public class AuthenticationActivity extends AppCompatActivity implements View.On
         Intent intent = getIntent();
         email = intent.getStringExtra(EMAIL);
         correctOtpCode = intent.getStringExtra(OTP);
-        String formatted = getString(R.string.description2, email);
-
+        previousActivity = intent.getStringExtra("activity");
         TextView authentication = findViewById(R.id.authentication);
-        authentication.setText(formatted);
+        authentication.setText(R.string.description2);
+        if(previousActivity.equals("SignUpActivity")){
+            user = (User)intent.getSerializableExtra("User");
+            generateOtp(email);
+        }
     }
 
     @Override
@@ -53,11 +59,22 @@ public class AuthenticationActivity extends AppCompatActivity implements View.On
         } else if (view.getId() == R.id.reSend) {
             clickCount = clickCount + 1;
             getAnotherOtpCode();
-            if (clickCount >= 3) {
+            if (clickCount >=2) {
                 binding.reSend.setClickable(false);
                 binding.numberOfClicks.setVisibility(View.VISIBLE);
             }
         }
+    }
+    private void generateOtp(String email) {
+
+        otpViewModel.getOtpCode(email).observe((LifecycleOwner) this, responseBody -> {
+            if (!responseBody.isError()) {
+                correctOtpCode = responseBody.getOtp();
+                Log.d("otp",correctOtpCode);
+            } else {
+                binding.otpCode.setError(getString(R.string.incorrect_email));
+            }
+        });
     }
 
     private void getAnotherOtpCode() {
@@ -74,13 +91,22 @@ public class AuthenticationActivity extends AppCompatActivity implements View.On
     private void checkOtpCode() {
         String otpEntered = binding.otpCode.getText().toString();
 
+        Log.d("otp",correctOtpCode);
         if (!otpEntered.equals(correctOtpCode)) {
             binding.otpCode.setError(getString(R.string.incorrect_code));
             binding.otpCode.requestFocus();
-        } else {
+        } else if(previousActivity.equals("SignUpActivity")){
+            LoginUtils.getInstance(this).saveUserInfo(user);
+            Intent intent = new Intent(this, ProductActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+            finish();
+        }
+        else if(previousActivity.equals("PasswordAssistant")){
             Intent passwordIntent = new Intent(this, com.example.beckart.view.PasswordActivity.class);
             startActivity(passwordIntent);
         }
+
     }
 
     @Override

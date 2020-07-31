@@ -29,14 +29,7 @@ public class OtpRepository {
             public void onResponse(Call<Otp> call, Response<Otp> response) {
 
                 Log.d(TAG, "onResponse: Succeeded");
-
-                Otp otp;
-                if (response.code() == 200) {
-                    otp = response.body();
-                } else {
-                    otp = new Otp("Incorrect Email");
-                }
-                mutableLiveData.setValue(otp);
+                mutableLiveData.setValue(response.body());
 
             }
 

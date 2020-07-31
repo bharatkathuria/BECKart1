@@ -57,6 +57,7 @@ public class PasswordAssistantActivity extends AppCompatActivity implements View
         Intent intent = new Intent(this, AuthenticationActivity.class);
         intent.putExtra(EMAIL, userEmail);
         intent.putExtra(OTP, otpCode);
+        intent.putExtra("activity","PasswordAssistant");
         startActivity(intent);
     }
 }

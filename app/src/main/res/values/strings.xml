@@ -139,7 +139,7 @@
     <string name="email_address">Email Address</string>
     <string name="authentication_required">Authentication Required</string>
     <string name="enter_otp">Enter OTP</string>
-    <string name="description2">For your security, we need to authenticate your request. We\'ve sent a code from <b>Wholesale Home India</b> to the email. Please enter it below.</string>
+    <string name="description2">For your security, we need to authenticate your request. We\'ve sent a code from Wholesale Home India to your email. Please enter it below.</string>
     <string name="enter_your_email">Please Enter your correct email</string>
     <string name="incorrect_code">Incorrect Code</string>
     <string name="resend_otp">Resend OTP</string>
@@ -179,6 +179,7 @@
     <string name="clear_all">Clear all</string>
     <string name="what_are_you_looking_for">What are you looking for?</string>
     <string name="Rs" translatable="false">\u20B9</string>
+    <string name="incorrect_email" translatable="false">Incorrect Email</string>
 
     <string-array name="categories_array">
         <item>Pressure Cooker</item>
