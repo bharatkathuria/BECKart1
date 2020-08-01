@@ -24,7 +24,6 @@ import android.widget.Toast;
 
 import com.example.beckart.R;
 import com.example.beckart.ViewModel.DeleteUserViewModel;
-import com.example.beckart.ViewModel.FromHistoryViewModel;
 //import com.example.beckart.databinding.ActivityAccountBinding;
 import com.example.beckart.databinding.ActivityAccountBinding;
 import com.example.beckart.storage.LoginUtils;
@@ -42,7 +41,7 @@ public class AccountActivity extends AppCompatActivity implements View.OnClickLi
 
     private static final String TAG = "AccountActivity";
     private DeleteUserViewModel deleteUserViewModel;
-    private FromHistoryViewModel fromHistoryViewModel;
+
     public static boolean historyIsDeleted = false;
 
     @Override
@@ -55,7 +54,6 @@ public class AccountActivity extends AppCompatActivity implements View.OnClickLi
         actionBar.setTitle(getResources().getString(R.string.my_account));
 
         deleteUserViewModel = ViewModelProviders.of(this).get(DeleteUserViewModel.class);
-        fromHistoryViewModel = ViewModelProviders.of(this).get(FromHistoryViewModel.class);
 
         binding.nameOfUser.setText(LoginUtils.getInstance(this).getUserInfo().getName());
         binding.emailOfUser.setText(LoginUtils.getInstance(this).getUserInfo().getEmail());
@@ -80,7 +78,6 @@ public class AccountActivity extends AppCompatActivity implements View.OnClickLi
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.action_signOut) {
             signOut();
-            deleteAllProductsInHistory();
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -93,12 +90,6 @@ public class AccountActivity extends AppCompatActivity implements View.OnClickLi
         startActivity(intent);
     }
 
-    private void deleteAllProductsInHistory() {
-       fromHistoryViewModel.removeAllFromHistory().observe(this, responseBody -> {
-           Log.d(TAG,getString(R.string.all_removed));
-       });
-       historyIsDeleted = true;
-    }
 
     @Override
     public void onClick(View view) {

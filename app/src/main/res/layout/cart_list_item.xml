@@ -25,8 +25,7 @@
                 android:layout_height="@dimen/dimen150dp"
                 android:layout_gravity="center"
                 android:layout_margin="@dimen/dimen10dp"
-                android:contentDescription="@string/product_image"
-                />
+                android:contentDescription="@string/product_image" />
 
             <LinearLayout
                 android:layout_width="match_parent"

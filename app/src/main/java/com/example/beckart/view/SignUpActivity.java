@@ -20,6 +20,8 @@ import com.example.beckart.model.User;
 import com.example.beckart.storage.LoginUtils;
 import com.example.beckart.utils.Validation;
 
+import java.io.Serializable;
+
 import static com.example.beckart.storage.LanguageUtils.loadLocale;
 import static com.example.beckart.utils.Constant.EMAIL;
 import static com.example.beckart.utils.Constant.OTP;
@@ -140,7 +142,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         Intent intent = new Intent(this, AuthenticationActivity.class);
         intent.putExtra(EMAIL, email);
         intent.putExtra(OTP, "1233333");
-        intent.putExtra("User",user);
+        intent.putExtra("User", user);
         intent.putExtra("activity","SignUpActivity");
         startActivity(intent);
     }

@@ -19,11 +19,9 @@ import com.example.beckart.ViewModel.AddFavoriteViewModel;
 import com.example.beckart.ViewModel.FromCartViewModel;
 import com.example.beckart.ViewModel.RemoveFavoriteViewModel;
 import com.example.beckart.ViewModel.ToCartViewModel;
-import com.example.beckart.ViewModel.ToHistoryViewModel;
 import com.example.beckart.databinding.SearchListItemBinding;
 import com.example.beckart.model.Cart;
 import com.example.beckart.model.Favorite;
-import com.example.beckart.model.History;
 import com.example.beckart.model.Product;
 import com.example.beckart.storage.LoginUtils;
 import com.example.beckart.utils.RequestCallback;
@@ -44,7 +42,6 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
     private RemoveFavoriteViewModel removeFavoriteViewModel;
     private ToCartViewModel toCartViewModel;
     private FromCartViewModel fromCartViewModel;
-    private ToHistoryViewModel toHistoryViewModel;
 
     // Create a final private SearchAdapterOnClickHandler called mClickHandler
     private SearchAdapterOnClickHandler clickHandler;
@@ -64,7 +61,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
         removeFavoriteViewModel = ViewModelProviders.of(activity).get(RemoveFavoriteViewModel.class);
         toCartViewModel = ViewModelProviders.of(activity).get(ToCartViewModel.class);
         fromCartViewModel = ViewModelProviders.of(activity).get(FromCartViewModel.class);
-        toHistoryViewModel = ViewModelProviders.of(activity).get(ToHistoryViewModel.class);
+
     }
 
     @NonNull
@@ -144,7 +141,6 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
                 case R.id.card_view:
                     // Send product through click
                     clickHandler.onClick(currentProduct);
-                    insertProductToHistory();
                     break;
                 case R.id.imgFavourite:
                     toggleFavourite();
@@ -231,9 +227,5 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
             fromCartViewModel.removeFromCart(LoginUtils.getInstance(mContext).getUserInfo().getId(), currentProduct.getProductId(),callback);
         }
 
-        private void insertProductToHistory() {
-            History history = new History(LoginUtils.getInstance(mContext).getUserInfo().getId(), currentProduct.getProductId());
-            toHistoryViewModel.addToHistory(history);
-        }
     }
 }

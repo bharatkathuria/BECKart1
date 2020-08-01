@@ -4,8 +4,6 @@ import com.example.beckart.model.Cart;
 import com.example.beckart.model.CartApiResponse;
 import com.example.beckart.model.Favorite;
 import com.example.beckart.model.FavoriteApiResponse;
-import com.example.beckart.model.History;
-import com.example.beckart.model.HistoryApiResponse;
 import com.example.beckart.model.Image;
 import com.example.beckart.model.LoginApiResponse;
 import com.example.beckart.model.NewsFeedResponse;
@@ -67,8 +65,8 @@ public interface Api {
     @GET("android/api/getOtp.php")
     Call<Otp> getOtp(@Query("email") String email);
 
-    @GET("products")
-    Call<ProductApiResponse> getProducts(@Query("page") int page);
+//    @GET("products")
+//    Call<ProductApiResponse> getProducts(@Query("page") int page);
 
     @GET("android/api/getProductsByCategory.php")
     Call<ProductApiResponse> getProductsByCategory(@Query("category") String category, @Query("userId") int userId,@Query("page") int page);
@@ -97,15 +95,6 @@ public interface Api {
     @GET("android/api/getProductsInCart.php")
     Call<CartApiResponse> getProductsInCart(@Query("userId") int userId);
 
-    @POST("android/api/addToHistory.php")
-    Call<ResponseBody> addToHistory(@Body History history);
-
-
-    @DELETE("android/api/removeAllFromHistory.php")
-    Call<ResponseBody> removeAllFromHistory();
-
-    @GET("android/api/getProductsInHistory.php")
-    Call<HistoryApiResponse> getProductsInHistory(@Query("userId") int userId, @Query("page") int page);
 
     @POST("android/api/addReview.php")
     Call<ResponseBody> addReview(@Body Review review);

@@ -30,7 +30,7 @@
                     android:layout_gravity="center"
                     android:layout_margin="@dimen/dimen10dp"
                     android:contentDescription="@string/product_image"
-                    android:src="@drawable/f" />
+                     />
 
                 <LinearLayout
                     android:layout_width="wrap_content"

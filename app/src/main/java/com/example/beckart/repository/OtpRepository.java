@@ -29,6 +29,7 @@ public class OtpRepository {
             public void onResponse(Call<Otp> call, Response<Otp> response) {
 
                 Log.d(TAG, "onResponse: Succeeded");
+                Log.d(TAG, String.valueOf(response));
                 mutableLiveData.setValue(response.body());
 
             }

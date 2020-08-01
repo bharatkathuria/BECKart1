@@ -1,5 +1,6 @@
 package com.example.beckart.model;
 
+import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
@@ -10,27 +11,6 @@ public class User implements Serializable {
     private String email;
     private String password;
     private boolean isAdmin;
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public void setAdmin(boolean admin) {
-        isAdmin = admin;
-    }
-
 
     public User(String name, String email, String password) {
         this.name = name;

@@ -31,11 +31,9 @@ import com.example.beckart.ViewModel.AddFavoriteViewModel;
 import com.example.beckart.ViewModel.FromCartViewModel;
 import com.example.beckart.ViewModel.RemoveFavoriteViewModel;
 import com.example.beckart.ViewModel.ToCartViewModel;
-import com.example.beckart.ViewModel.ToHistoryViewModel;
 import com.example.beckart.databinding.ProductListItemBinding;
 import com.example.beckart.model.Cart;
 import com.example.beckart.model.Favorite;
-import com.example.beckart.model.History;
 import com.example.beckart.model.Product;
 import com.example.beckart.storage.LoginUtils;
 import com.example.beckart.utils.RequestCallback;
@@ -53,7 +51,6 @@ public class ProductAdapter extends PagedListAdapter<Product, ProductAdapter.Pro
     private RemoveFavoriteViewModel removeFavoriteViewModel;
     private ToCartViewModel toCartViewModel;
     private FromCartViewModel fromCartViewModel;
-    private ToHistoryViewModel toHistoryViewModel;
 
     // Create a final private MovieAdapterOnClickHandler called mClickHandler
     private ProductAdapterOnClickHandler clickHandler;
@@ -73,7 +70,7 @@ public class ProductAdapter extends PagedListAdapter<Product, ProductAdapter.Pro
         removeFavoriteViewModel = ViewModelProviders.of((FragmentActivity) mContext).get(RemoveFavoriteViewModel.class);
         toCartViewModel = ViewModelProviders.of((FragmentActivity) mContext).get(ToCartViewModel.class);
         fromCartViewModel = ViewModelProviders.of((FragmentActivity) mContext).get(FromCartViewModel.class);
-        toHistoryViewModel = ViewModelProviders.of((FragmentActivity) mContext).get(ToHistoryViewModel.class);
+
     }
 
     @NonNull
@@ -193,7 +190,6 @@ public class ProductAdapter extends PagedListAdapter<Product, ProductAdapter.Pro
                 case R.id.card_view:
                     // Send product through click
                     clickHandler.onClick(product);
-                    insertProductToHistory();
                     break;
                 case R.id.imgFavourite:
                     toggleFavourite();
@@ -256,6 +252,7 @@ public class ProductAdapter extends PagedListAdapter<Product, ProductAdapter.Pro
         }
 
         private void insertToCart(RequestCallback callback) {
+
             Cart cart = new Cart(LoginUtils.getInstance(mContext).getUserInfo().getId(), product.getProductId());
             toCartViewModel.addToCart(cart, callback);
         }
@@ -264,10 +261,6 @@ public class ProductAdapter extends PagedListAdapter<Product, ProductAdapter.Pro
             fromCartViewModel.removeFromCart(LoginUtils.getInstance(mContext).getUserInfo().getId(), product.getProductId(),callback);
         }
 
-        private void insertProductToHistory() {
-            History history = new History(LoginUtils.getInstance(mContext).getUserInfo().getId(), product.getProductId());
-            toHistoryViewModel.addToHistory(history);
-        }
     }
 
 
