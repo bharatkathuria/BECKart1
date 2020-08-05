@@ -16,7 +16,11 @@ import com.example.beckart.R;
 import com.example.beckart.ViewModel.WriteReviewViewModel;
 import com.example.beckart.databinding.ActivityWriteReviewBinding;
 import com.example.beckart.model.Review;
+import com.example.beckart.model.User;
 import com.example.beckart.storage.LoginUtils;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 
@@ -60,7 +64,9 @@ public class WriteReviewActivity extends AppCompatActivity implements View.OnCli
     }
 
     private void writeReview() {
-        int userId = LoginUtils.getInstance(this).getUserInfo().getId();
+        User user = LoginUtils.getInstance(this).getUserInfo();
+        int userId = user.getId();
+        String userName = user.getName();
         String feedback = binding.editFeedback.getText().toString().trim();
         float rate = binding.rateProduct.getRating();
 
@@ -70,16 +76,20 @@ public class WriteReviewActivity extends AppCompatActivity implements View.OnCli
             return;
         }
 
-        Review review = new Review(userId, productId, rate, feedback);
+        Review review = new Review(userId, userName, productId, rate, feedback);
         writeReviewViewModel.writeReview(review).observe((LifecycleOwner) this, responseBody -> {
-            if ((responseBody != null)) {
                 try {
-                    Toast.makeText(this, responseBody.string(), Toast.LENGTH_SHORT).show();
-                    finish();
-                } catch (IOException e) {
+                    JSONObject obj = new JSONObject(responseBody.string());
+                    if(obj.getBoolean("error")){
+                        Toast.makeText(this, obj.getString("message"), Toast.LENGTH_SHORT).show();
+                    }
+                    else{
+                        Toast.makeText(this, obj.getString("message"), Toast.LENGTH_SHORT).show();
+                        finish();
+                    }
+                } catch (IOException | JSONException e) {
                     e.printStackTrace();
                 }
-            }
         });
     }
 

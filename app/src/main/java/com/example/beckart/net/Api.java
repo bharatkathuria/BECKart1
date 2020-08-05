@@ -71,7 +71,7 @@ public interface Api {
     @GET("android/api/getProductsByCategory.php")
     Call<ProductApiResponse> getProductsByCategory(@Query("category") String category, @Query("userId") int userId,@Query("page") int page);
 
-    @GET("products/search")
+    @GET("android/api/searchForProduct.php")
     Call<ProductApiResponse> searchForProduct(@Query("q") String keyword, @Query("userId") int userId);
 
     @Headers("Content-Type: application/json")

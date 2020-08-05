@@ -128,7 +128,6 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
             itemView.setOnClickListener(this);
             binding.imgFavourite.setOnClickListener(this);
             binding.imgCart.setOnClickListener(this);
-            binding.addToCart.setOnClickListener(this);
         }
 
         @Override
