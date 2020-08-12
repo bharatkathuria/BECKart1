@@ -20,7 +20,6 @@
                 android:layout_height="300dp"
                 android:background="@color/white"
                 android:contentDescription="@string/product_image"
-                android:src="@drawable/cooker"
                 tools:scaleType="fitXY" />
 
             <View

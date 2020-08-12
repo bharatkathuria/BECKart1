@@ -79,8 +79,8 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
 
         binding.included.content.txtSeeAllMobiles.setOnClickListener(this);
         binding.included.content.txtSeeAllLaptops.setOnClickListener(this);
-        binding.included.content.txtCash.setOnClickListener(this);
-        binding.included.content.txtReturn.setOnClickListener(this);
+//        binding.included.content.txtCash.setOnClickListener(this);
+//        binding.included.content.txtReturn.setOnClickListener(this);
         binding.included.txtSearch.setOnClickListener(this);
 
         setUpViews();
@@ -189,12 +189,12 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
                 Intent laptopIntent = new Intent(this, AllLaptopsActivity.class);
                 startActivity(laptopIntent);
                 break;
-            case R.id.txtCash:
-                showNormalAlertDialog(getString(R.string.cash));
-                break;
-            case R.id.txtReturn:
-                showNormalAlertDialog(getString(R.string.returnProduct));
-                break;
+//            case R.id.txtCash:
+//                showNormalAlertDialog(getString(R.string.cash));
+//                break;
+//            case R.id.txtReturn:
+//                showNormalAlertDialog(getString(R.string.returnProduct));
+//                break;
             case R.id.txtSearch:
                 Intent searchIntent = new Intent(ProductActivity.this, com.example.beckart.view.SearchActivity.class);
                 startActivity(searchIntent);
@@ -297,8 +297,8 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
         binding.included.content.txtSeeAllMobiles.setVisibility(view);
         binding.included.content.textViewLaptops.setVisibility(view);
         binding.included.content.txtSeeAllLaptops.setVisibility(view);
-        binding.included.content.txtCash.setVisibility(view);
-        binding.included.content.txtReturn.setVisibility(view);
+//        binding.included.content.txtCash.setVisibility(view);
+//        binding.included.content.txtReturn.setVisibility(view);
     }
 
     @Override
@@ -318,9 +318,6 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
         } else if (id == R.id.nav_myAccount) {
             Intent accountIntent = new Intent(this, AccountActivity.class);
             startActivity(accountIntent);
-        } else if (id == R.id.nav_newsFeed) {
-            Intent newsFeedIntent = new Intent(this, NewsFeedActivity.class);
-            startActivity(newsFeedIntent);
         } else if (id == R.id.nav_wishList) {
             Intent wishListIntent = new Intent(this, com.example.beckart.view.WishListActivity.class);
             startActivity(wishListIntent);
