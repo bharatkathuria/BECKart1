@@ -9,7 +9,10 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.beckart.R;
 import com.example.beckart.ViewModel.CartViewModel;
@@ -28,7 +31,7 @@ public class CartActivity extends AppCompatActivity {
 
     private ActivityCartBinding binding;
     private CartAdapter cartAdapter;
-    private List<Product> favoriteList;
+    private List<Product> productList;
     private CartViewModel cartViewModel;
 
     @Override
@@ -55,22 +58,28 @@ public class CartActivity extends AppCompatActivity {
         if (isNetworkConnected(this)) {
             cartViewModel.getProductsInCart(LoginUtils.getInstance(this).getUserInfo().getId()).observe((LifecycleOwner) this, cartApiResponse -> {
                 if (cartApiResponse != null) {
-                    favoriteList = cartApiResponse.getProductsInCart();
-                    if (favoriteList.size() == 0) {
+                    productList = cartApiResponse.getProductsInCart();
+                    if (productList.size() == 0) {
                         binding.noBookmarks.setVisibility(View.VISIBLE);
                         binding.emptyCart.setVisibility(View.VISIBLE);
                     } else {
                         binding.bottomBar.setVisibility(View.VISIBLE);
                         binding.productsInCart.setVisibility(View.VISIBLE);
                     }
-                    cartAdapter = new CartAdapter(getApplicationContext(), favoriteList, product -> {
+                    cartAdapter = new CartAdapter(getApplicationContext(), productList, product -> {
                         Intent intent = new Intent(CartActivity.this, com.example.beckart.view.DetailsActivity.class);
                         // Pass an object of product class
                         intent.putExtra(PRODUCT, (product));
                         startActivity(intent);
-                    }, this);
+                    }, this,binding);
                 }
-
+                binding.totalPrice.setText(String.valueOf(getTotal(productList)));
+                binding.checkout.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Log.d("ONCLICK","Heeeeeeeeeeeeeeloi");
+                    }
+                });
                 binding.loadingIndicator.setVisibility(View.GONE);
                 binding.productsInCart.setAdapter(cartAdapter);
                 cartAdapter.notifyDataSetChanged();
@@ -80,6 +89,14 @@ public class CartActivity extends AppCompatActivity {
             binding.loadingIndicator.setVisibility(View.GONE);
             binding.emptyCart.setText(getString(R.string.no_internet_connection));
         }
+    }
+
+    private double getTotal(List<Product> productList) {
+        double total =0;
+        for(Product p:productList){
+            total+=p.getProductPrice();
+        }
+        return total;
     }
 
     @Override

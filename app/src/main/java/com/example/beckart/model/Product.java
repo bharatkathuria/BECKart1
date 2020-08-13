@@ -28,7 +28,6 @@ public class Product implements Parcelable {
     // Include child Parcelable objects
     private Product mInfo;
 
-
     public Product(String productName, double productPrice, int productQuantity, String productSupplier, String productCategory) {
         this.productName = productName;
         this.productPrice = productPrice;
