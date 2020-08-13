@@ -6,6 +6,7 @@ import android.arch.paging.PageKeyedDataSource;
 import android.arch.paging.PagedList;
 
 import com.example.beckart.model.Product;
+import com.example.beckart.net.CookerDataSourceFactory;
 import com.example.beckart.net.LaptopDataSourceFactory;
 import com.example.beckart.net.ProductDataSource;
 import com.example.beckart.net.ProductDataSourceFactory;
@@ -14,6 +15,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import static com.example.beckart.net.LaptopDataSourceFactory.laptopDataSource;
+import static com.example.beckart.net.CookerDataSourceFactory.cookerDataSource;
 import static com.example.beckart.net.ProductDataSourceFactory.productDataSource;
 
 
@@ -25,6 +27,9 @@ public class ProductViewModel extends ViewModel {
 
     public LiveData<PagedList<Product>> laptopPagedList;
     private LiveData<PageKeyedDataSource<Integer, Product>> laptopLiveDataSource;
+
+    public LiveData<PagedList<Product>> cookerPagedList;
+    private LiveData<PageKeyedDataSource<Integer, Product>> cookerLiveDataSource;
 
     // Get PagedList configuration
     private final static PagedList.Config  pagedListConfig =
@@ -58,6 +63,18 @@ public class ProductViewModel extends ViewModel {
     public void invalidate(){
         if(productDataSource != null) productDataSource.invalidate();
         if(laptopDataSource!= null) laptopDataSource.invalidate();
+        if(cookerDataSource!= null) cookerDataSource.invalidate();
     }
 
+    public void loadCookers(String category, int userId) {
+
+        CookerDataSourceFactory cookerDataSourceFactory = new CookerDataSourceFactory(category,userId);
+
+        // Get the live database source from database source factory
+        productLiveDataSource = cookerDataSourceFactory.getCookerLiveDataSource();
+
+        // Build the paged list
+        cookerPagedList = (new LivePagedListBuilder(cookerDataSourceFactory, pagedListConfig)).build();
+
+    }
 }

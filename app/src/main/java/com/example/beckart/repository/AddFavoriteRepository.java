@@ -38,7 +38,6 @@ public class AddFavoriteRepository {
                 if(response.code() == 200){
                     callback.onCallBack();
                 }
-
                 if (response.body() != null) {
                     mutableLiveData.setValue(responseBody);
                 }

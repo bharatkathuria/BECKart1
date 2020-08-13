@@ -25,7 +25,6 @@ public class CartRepository {
 
     public LiveData<CartApiResponse> getProductsInCart(int userId) {
         final MutableLiveData<CartApiResponse> mutableLiveData = new MutableLiveData<>();
-
         RetrofitClient.getInstance().getApi().getProductsInCart(userId).enqueue(new Callback<CartApiResponse>() {
             @Override
             public void onResponse(Call<CartApiResponse> call, Response<CartApiResponse> response) {

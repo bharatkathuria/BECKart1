@@ -128,6 +128,7 @@ public class ProductAdapter extends PagedListAdapter<Product, ProductAdapter.Pro
         }
     }
 
+
     @Override
     public long getItemId(int position) {
         return position;

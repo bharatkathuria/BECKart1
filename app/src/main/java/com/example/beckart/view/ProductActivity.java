@@ -21,6 +21,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -52,6 +53,7 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
 
     private ProductAdapter mobileAdapter;
     private ProductAdapter laptopAdapter;
+    private ProductAdapter cookerAdapter;
     private ProductAdapter historyAdapter;
 
     private ProductViewModel productViewModel;
@@ -73,26 +75,28 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
         productViewModel = ViewModelProviders.of(this).get(ProductViewModel.class);
         productViewModel.loadLaptops("cookware",userID);
         productViewModel.loadMobiles("cutlery", userID);
+        productViewModel.loadCookers("pressure cooker",userID);
 
 
         snack = Snackbar.make(findViewById(android.R.id.content), getResources().getString(R.string.no_internet_connection), Snackbar.LENGTH_INDEFINITE);
 
         binding.included.content.txtSeeAllMobiles.setOnClickListener(this);
         binding.included.content.txtSeeAllLaptops.setOnClickListener(this);
-//        binding.included.content.txtCash.setOnClickListener(this);
-//        binding.included.content.txtReturn.setOnClickListener(this);
+        binding.included.content.txtSeeAllCookers.setOnClickListener(this);
+
         binding.included.txtSearch.setOnClickListener(this);
 
         setUpViews();
 
         getMobiles();
         getLaptops();
-
+        getCookers();
         flipImages(Slide.getSlides());
 
         mNetworkReceiver = new NetworkChangeReceiver();
         mNetworkReceiver.setOnNetworkListener(this);
     }
+
 
     private void setUpViews() {
         Toolbar toolbar = binding.included.toolbar;
@@ -121,9 +125,13 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
         binding.included.content.listOfLaptops.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         binding.included.content.listOfLaptops.setItemAnimator(null);
 
+        binding.included.content.listOfCookers.setHasFixedSize(true);
+        binding.included.content.listOfCookers.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        binding.included.content.listOfCookers.setItemAnimator(null);
 
         mobileAdapter = new ProductAdapter(this, this);
         laptopAdapter = new ProductAdapter(this, this);
+        cookerAdapter = new ProductAdapter(this,this);
 
     }
 
@@ -161,6 +169,23 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
         }
     }
 
+    private void getCookers() {
+        if (isNetworkConnected(this)) {
+            productViewModel.cookerPagedList.observe(this, new Observer<PagedList<Product>>() {
+                @Override
+                public void onChanged(@Nullable PagedList<Product> products) {
+                    cookerAdapter.submitList(products);
+                }
+            });
+
+            binding.included.content.listOfCookers.setAdapter(cookerAdapter);
+            cookerAdapter.notifyDataSetChanged();
+        } else {
+            showOrHideViews(View.INVISIBLE);
+            showSnackBar();
+        }
+
+    }
 
     private void flipImages(ArrayList<Integer> images) {
         for (int image : images) {
@@ -184,17 +209,16 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
             case R.id.txtSeeAllMobiles:
                 Intent mobileIntent = new Intent(this, AllMobilesActivity.class);
                 startActivity(mobileIntent);
+
                 break;
             case R.id.txtSeeAllLaptops:
                 Intent laptopIntent = new Intent(this, AllLaptopsActivity.class);
                 startActivity(laptopIntent);
                 break;
-//            case R.id.txtCash:
-//                showNormalAlertDialog(getString(R.string.cash));
-//                break;
-//            case R.id.txtReturn:
-//                showNormalAlertDialog(getString(R.string.returnProduct));
-//                break;
+            case R.id.txtSeeAllCookers:
+                Intent cookerIntent = new Intent(this, AllCookersActivity.class);
+                startActivity(cookerIntent);
+                break;
             case R.id.txtSearch:
                 Intent searchIntent = new Intent(ProductActivity.this, com.example.beckart.view.SearchActivity.class);
                 startActivity(searchIntent);
@@ -248,6 +272,7 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
         showOrHideViews(View.VISIBLE);
         getMobiles();
         getLaptops();
+        getCookers();
     }
 
     @Override
@@ -297,8 +322,9 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
         binding.included.content.txtSeeAllMobiles.setVisibility(view);
         binding.included.content.textViewLaptops.setVisibility(view);
         binding.included.content.txtSeeAllLaptops.setVisibility(view);
-//        binding.included.content.txtCash.setVisibility(view);
-//        binding.included.content.txtReturn.setVisibility(view);
+        binding.included.content.textViewCookers.setVisibility(view);
+        binding.included.content.txtSeeAllCookers.setVisibility(view);
+
     }
 
     @Override
@@ -306,11 +332,11 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
         int id = menuItem.getItemId();
 
         if (id == R.id.nav_mobiles) {
-            goToCategoryActivity("Pressure Cookers");
+            goToCategoryActivity("pressure cooker");
         } else if (id == R.id.nav_laptops) {
-            goToCategoryActivity("Cookware");
+            goToCategoryActivity("cookware");
         } else if (id == R.id.nav_babies) {
-            goToCategoryActivity("Cutlery");
+            goToCategoryActivity("cutlery");
         }
         else if (id == R.id.nav_trackOrder) {
             Intent orderIntent = new Intent(this, OrdersActivity.class);
@@ -363,6 +389,7 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
         productViewModel.invalidate();
         getMobiles();
         getLaptops();
+        getCookers();
     }
 
 

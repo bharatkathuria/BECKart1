@@ -42,6 +42,7 @@ public interface Api {
     @POST("android/api/createUser.php")
     Call<RegisterApiResponse> createUser(@Body User user);
 
+    @Headers("Cache-control:no-cache")
     @GET("android/api/logInUser.php")
     Call<LoginApiResponse> logInUser(@Query("email") String email, @Query("password") String password);
 
@@ -62,6 +63,7 @@ public interface Api {
     @GET("users/getImage")
     Call<Image> getUserImage(@Query("id") int userId);
 
+    @Headers("Cache-control:no-cache")
     @GET("android/api/getOtp.php")
     Call<Otp> getOtp(@Query("email") String email);
 
@@ -82,6 +84,7 @@ public interface Api {
     @POST("android/api/removeFavorite.php")
     Call<ResponseBody> removeFavorite(@Field("userId") int userId, @Field("productId") int productId);
 
+    @Headers("Cache-control:no-cache")
     @GET("android/api/getFavorites.php")
     Call<FavoriteApiResponse> getFavorites(@Query("userId") int userId);
 
@@ -92,6 +95,8 @@ public interface Api {
     @POST("android/api/removeFromCart.php")
     Call<ResponseBody> removeFromCart(@Field("userId") int userId, @Field("productId") int productId);
 
+
+    @Headers("Cache-control:no-cache")
     @GET("android/api/getProductsInCart.php")
     Call<CartApiResponse> getProductsInCart(@Query("userId") int userId);
 
@@ -99,6 +104,7 @@ public interface Api {
     @POST("android/api/addReview.php")
     Call<ResponseBody> addReview(@Body Review review);
 
+    @Headers("Cache-control:no-cache")
     @GET("android/api/getAllReviews.php")
     Call<ReviewApiResponse> getAllReviews(@Query("productId") int productId);
 

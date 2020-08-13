@@ -180,6 +180,7 @@
     <string name="schedule">schedule</string>
     <string name="clear_all">Clear all</string>
     <string name="what_are_you_looking_for">What are you looking for?</string>
+    <string name="itemCount">Total Products:</string>
 
     <string-array name="categories_array">
         <item>Mobile</item>

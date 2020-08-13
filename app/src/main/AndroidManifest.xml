@@ -63,6 +63,14 @@
                 android:value=".view.ProductActivity" />
         </activity>
         <activity
+            android:name=".view.AllCookersActivity"
+            android:label="@string/all_cookers"
+            android:parentActivityName=".view.ProductActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".view.ProductActivity" />
+        </activity>
+        <activity
             android:name=".view.AllMobilesActivity"
             android:label="@string/all_mobiles"
             android:parentActivityName=".view.ProductActivity">

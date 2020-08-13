@@ -27,7 +27,7 @@
 
     <!--Server Information-->
     <string name="see_all">See All</string>
-    <string name="mobile">Pressure Cookers</string>
+    <string name="mobile">Cutlery</string>
     <string name="laptop">Cookware</string>
     <string name="product_image">Product Image</string>
     <string name="samsung_galaxy_a70">Pressure Cooker</string>
@@ -37,7 +37,8 @@
     <string name="_5399_egp">1200 Rs/-</string>
     <string name="name_required">Name Required</string>
     <string name="all_laptops">All Cookware</string>
-    <string name="all_mobiles">All Pressure Cookers</string>
+    <string name="all_mobiles">All Cutlery</string>
+    <string name="all_cookers" translatable="false">All Pressure Cookers</string>
     <string name="no_internet_connection">No Internet Connection</string>
     <string name="free_shipping">FREE Shipping</string>
     <string name="fulfilled_by_souq">Fulfilled by Wholesale Home India</string>
@@ -180,6 +181,10 @@
     <string name="what_are_you_looking_for">What are you looking for?</string>
     <string name="Rs" translatable="false">\u20B9</string>
     <string name="incorrect_email" translatable="false">Incorrect Email !</string>
+    <string name="cooker" translatable="false">Pressure Cookers</string>
+    <string name="itemCount">Total Products:</string>
+    <string name="total" translatable="false">Total:  </string>
+    <string name="checkout" translatable="false">Checkout</string>
 
     <string-array name="categories_array">
         <item>Pressure Cooker</item>

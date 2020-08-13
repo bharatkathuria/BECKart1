@@ -60,6 +60,7 @@ public class CartActivity extends AppCompatActivity {
                         binding.noBookmarks.setVisibility(View.VISIBLE);
                         binding.emptyCart.setVisibility(View.VISIBLE);
                     } else {
+                        binding.bottomBar.setVisibility(View.VISIBLE);
                         binding.productsInCart.setVisibility(View.VISIBLE);
                     }
                     cartAdapter = new CartAdapter(getApplicationContext(), favoriteList, product -> {
@@ -80,4 +81,13 @@ public class CartActivity extends AppCompatActivity {
             binding.emptyCart.setText(getString(R.string.no_internet_connection));
         }
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getProductsInCart();
+    }
+
+
+
 }
