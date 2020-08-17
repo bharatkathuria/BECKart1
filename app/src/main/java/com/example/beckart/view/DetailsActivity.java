@@ -56,7 +56,7 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
         binding.txtSeeAllReviews.setOnClickListener(this);
         binding.writeReview.setOnClickListener(this);
         binding.addToCart.setOnClickListener(this);
-        binding.buy.setOnClickListener(this);
+
 
         getProductDetails();
 
@@ -100,7 +100,7 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
                 reviewList = reviewApiResponse.getReviewList();
                 reviewAdapter = new ReviewAdapter(getApplicationContext(), reviewList);
                 binding.listOfReviews.setAdapter(reviewAdapter);
-                //reviewAdapter.notifyOnInsertedItem();
+                reviewAdapter.notifyOnInsertedItem();
                 reviewAdapter.notifyDataSetChanged();
             }
 
@@ -129,12 +129,12 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
                 product.setIsInCart(true);
             });
             Intent cartIntent = new Intent(DetailsActivity.this, CartActivity.class);
-            startActivity(cartIntent);
-        }else if(view.getId() == R.id.buy){
-            Intent shippingIntent = new Intent(DetailsActivity.this, com.example.beckart.view.ShippingAddressActivity.class);
-            shippingIntent.putExtra(PRODUCTID, product.getProductId());
-            startActivity(shippingIntent);
-        }
+            startActivity(cartIntent);}
+//        else if(view.getId() == R.id.buy){
+//            Intent shippingIntent = new Intent(DetailsActivity.this, com.example.beckart.view.ShippingAddressActivity.class);
+//            shippingIntent.putExtra(PRODUCTID, product.getProductId());
+//            startActivity(shippingIntent);
+//        }
     }
 
     private void insertToCart(RequestCallback callback) {

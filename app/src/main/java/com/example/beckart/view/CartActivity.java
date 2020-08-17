@@ -77,6 +77,10 @@ public class CartActivity extends AppCompatActivity {
                 binding.checkout.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+
+                        Intent shippingIntent = new Intent(CartActivity.this, com.example.beckart.view.ShippingAddressActivity.class);
+//                        shippingIntent.putExtra(PRODUCTID, product.getProductId());
+                        startActivity(shippingIntent);
                         Log.d("ONCLICK","Heeeeeeeeeeeeeeloi");
                     }
                 });
